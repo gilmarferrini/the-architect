@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/gilmarferrini/the-architect/issues"
   },
-  "homepage": "https://github.com/gilmarferrini/the-architect#readme"
+  "homepage": "https://github.com/gilmarferrini/the-architect#readme",
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
 }
