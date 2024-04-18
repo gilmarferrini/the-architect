@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/gilmarferrini/the-architect#readme",
   "devDependencies": {
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
     "typescript": "^5.4.5"
   }
 }
