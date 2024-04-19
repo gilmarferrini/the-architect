@@ -1,11 +1,9 @@
-import express from 'express';
+import fastify from 'fastify'
 
-const app = express()
+const app = fastify()
 
-app.get('/', (request, response) => {
-  return response.json({
-    message: 'The Architect API is running!'
-  })
+app.get('/users', (request, reply) => {
+  return reply.send({ message: 'Users!!' })
 })
 
 export {
