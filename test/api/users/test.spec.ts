@@ -12,10 +12,15 @@ describe('Users Routes', () => {
     await app.close()
   })
 
-  it('should return status code 201', async () => {
+  it('should return status code 201 on create user', async () => {
     const response = await request(app.server)
       .post('/users')
-      .send()
+      .send({
+        firstName: 'Gilmar',
+        lastName: 'Ferrini',
+        password: '123456',
+        email: 'ferrinigilmar@gmail.com',
+      })
 
     expect(response.statusCode).toBe(201)
   })

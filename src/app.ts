@@ -1,5 +1,5 @@
 import fastify from 'fastify'
-import { usersRoutes } from './core/routes/usersRoutes'
+import { usersRoutes } from './routes/users-routes'
 
 const app = fastify()
 
