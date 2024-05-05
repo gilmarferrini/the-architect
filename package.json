@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/gilmarferrini/the-architect#readme",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.12.7",
     "@types/supertest": "^6.0.2",
     "@vitest/coverage-v8": "^1.6.0",
@@ -32,6 +33,7 @@
     "vitest": "^1.6.0"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "fastify": "^4.26.2",
     "knex": "^3.1.0",
     "pg": "^8.11.5",
