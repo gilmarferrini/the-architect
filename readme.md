@@ -6,7 +6,7 @@
 
 
 ### Todo
-- [ ] - Usar o bcryptjs para criptografar a senha
+- [x] - Usar o bcryptjs para criptografar a senha
 - [ ] - Adicionar erros personalizados
 - [ ] - Adicionar tratamento de errors
 - [ ] - Criar rota para recuperar usuário pelo id

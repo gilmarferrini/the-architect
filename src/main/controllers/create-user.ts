@@ -4,7 +4,6 @@ import { Controller } from "../interfaces/controller";
 import { CreateUser } from "../interfaces/create-user";
 import { db } from "../../core/knex";
 
-
 export class CreateUserController implements Controller {
 
   constructor (private readonly createUserUseCase: CreateUser) {}
