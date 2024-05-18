@@ -1,6 +1,8 @@
 import { FastifyInstance } from 'fastify'
 import { CreateUserController } from '../main/controllers/create-user'
 import { CreateUserUseCase } from '../main/use-cases/create-user'
+import { UsersRepository } from '../main/repositories/users-repository'
+import { CreateUserUseCaseFactory } from '../main/factories/create-user-use-case-factory'
 
 export async function usersRoutes (simplify: FastifyInstance) {
   simplify.get('/', (request, reply) => {
@@ -8,7 +10,7 @@ export async function usersRoutes (simplify: FastifyInstance) {
   })
 
   simplify.post('/', async (request, reply ) => {
-    const createUserUseCase = new CreateUserUseCase()
+    const createUserUseCase = CreateUserUseCaseFactory.create()
     return new CreateUserController(createUserUseCase).execute(request, reply)
   })
 }
