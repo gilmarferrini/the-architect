@@ -3,6 +3,7 @@ import { UsersRepository, UsersRepositoryInput } from "./interfaces/users-reposi
 
 export class InMemoryUsersRepository implements UsersRepository {
   private users: User[] = []
+
   async save ({ firstName, lastName, email, password, accountId, archived }: UsersRepositoryInput) {
     this.users.push({
       first_name: firstName,
@@ -13,5 +14,10 @@ export class InMemoryUsersRepository implements UsersRepository {
       archived,
       user_type: 'admin'
     })
+  }
+
+  async findByEmail(email: string) {
+    const user = this.users.find(user => user.email === email)
+    return user || null
   }
 }

@@ -13,4 +13,14 @@ export class UsersRepositoryImplementation implements UsersRepository {
       user_type: 'admin'
     })
   }
+
+  async findByEmail(email: string){
+    const user = await db('users')
+      .select('*')
+      .where({
+        email
+      }).first()
+
+    return user || null
+  }
 }

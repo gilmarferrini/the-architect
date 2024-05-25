@@ -1,5 +1,8 @@
+import { User } from "../../entities/user"
+
 export interface UsersRepository {
   save(input: UsersRepositoryInput): Promise<void>
+  findByEmail(email: string): Promise<User | null>
 }
 
 export interface UsersRepositoryInput {

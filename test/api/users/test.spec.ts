@@ -25,7 +25,7 @@ describe('Users Routes', () => {
     expect(response.statusCode).toBe(201)
   })
 
-  it ('should return an error if send the password with less than 6 characters', async () => {
+  it('should return an error if send the password with less than 6 characters', async () => {
     const response = await request(app.server)
     .post('/users')
     .send({
