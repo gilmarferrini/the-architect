@@ -1,6 +1,5 @@
 import { User } from "../entities/user";
-import { UsersRepositoryInput } from "./interfaces/users-repository";
-import { UsersRepository } from "./users-repository";
+import { UsersRepository, UsersRepositoryInput } from "./interfaces/users-repository";
 
 export class InMemoryUsersRepository implements UsersRepository {
   private users: User[] = []

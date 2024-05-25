@@ -2,7 +2,7 @@ import { db } from "../../core/knex";
 import { CreateUserDTO } from "../dtos/create-user";
 import { CreateUser } from "../interfaces/create-user";
 import { hash } from "bcryptjs";
-import { UsersRepository } from "../repositories/users-repository";
+import { UsersRepository } from "../repositories/interfaces/users-repository";
 
 export class CreateUserUseCase implements CreateUser {
   constructor (private readonly usersRepository: UsersRepository) {}

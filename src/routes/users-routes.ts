@@ -1,7 +1,5 @@
 import { FastifyInstance } from 'fastify'
 import { CreateUserController } from '../main/controllers/create-user'
-import { CreateUserUseCase } from '../main/use-cases/create-user'
-import { UsersRepository } from '../main/repositories/users-repository'
 import { CreateUserUseCaseFactory } from '../main/factories/create-user-use-case-factory'
 
 export async function usersRoutes (simplify: FastifyInstance) {
