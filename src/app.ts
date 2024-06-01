@@ -1,6 +1,7 @@
 import fastify, { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 import { usersRoutes } from './routes/users-routes'
 import { ZodError } from 'zod'
+import { CustomError } from './main/errors/custom-error'
 
 const app = fastify()
 
@@ -13,7 +14,12 @@ app.setErrorHandler((error: FastifyError, request: FastifyRequest, reply: Fastif
     return reply.status(422).send({
       message: error.format()
     })
+  } else if (error instanceof CustomError) {
+    return reply.status(422).send({
+      message: error.message
+    })
   }
+  return reply.status(500).send()
 })
 
 export {

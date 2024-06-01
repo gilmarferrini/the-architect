@@ -7,8 +7,8 @@
 
 ### Todo
 - [x] - Usar o bcryptjs para criptografar a senha
-- [ ] - Adicionar erros personalizados
-- [ ] - Adicionar tratamento de errors
+- [x] - Adicionar erros personalizados
+- [x] - Adicionar tratamento de errors
 - [ ] - Criar rota para recuperar usuário pelo id
 - [ ] - Criar caso de uso para criar account (separar da criação do user)
 - [ ] - Criar rota de autenticação
