@@ -2,8 +2,19 @@ import fastify, { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 import { usersRoutes } from './routes/users-routes'
 import { ZodError } from 'zod'
 import { CustomError } from './main/errors/custom-error'
+import cors from '@fastify/cors'
 
 const app = fastify()
+
+app.register(cors, {
+  hook: 'preHandler',
+  delegator: (request, callback) => {
+    const corsOptions = {
+      origin: true
+    }
+    callback(null, corsOptions)
+  }
+})
 
 app.register(usersRoutes, {
   prefix: '/users'

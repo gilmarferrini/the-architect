@@ -5,7 +5,7 @@ export default {
       host: 'localhost',
       port: 5432,
       user: 'postgres',
-      password: 'postgres',
+      password: 'test',
       database: 'thearchitect'
     },
     migrations: {
