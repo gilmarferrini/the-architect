@@ -1,5 +1,4 @@
-import knex from "knex";
-import path from "path";
+import knex from 'knex';
 
 export const knexConfig = knex({
   client: 'pg',
