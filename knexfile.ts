@@ -1,6 +1,4 @@
-import knex from 'knex';
-
-export const knexConfig = knex({
+export default {
   client: 'pg',
   connection: {
     host: 'localhost',
@@ -13,4 +11,4 @@ export const knexConfig = knex({
     min: 1,
     max: 2
   }
-})
+}
