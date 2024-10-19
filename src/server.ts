@@ -4,6 +4,7 @@ import { UserRepositoryDatabase } from './repositories/user-repository'
 import { AccountRepositoryDatabase } from './repositories/account-repository'
 import { EncrypterAdapter } from './adapters/encrypter-adapter'
 import { AuthenticationController } from './controllers/authentication/authentication'
+import { TokenAdapter } from './adapters/token-adapter'
 
 const server = express()
 server.use(express.json())
@@ -22,7 +23,8 @@ server.post('/users/authenticate', async (request: Request, response: Response) 
     const { email, password } = request.body
     const userRepository = new UserRepositoryDatabase()
     const encrypterAdapter = new EncrypterAdapter()
-    const authenticationController = new AuthenticationController(userRepository, encrypterAdapter)
+    const tokenAdapter = new TokenAdapter()
+    const authenticationController = new AuthenticationController(userRepository, encrypterAdapter, tokenAdapter)
     const token = await authenticationController.authenticate({
       email,
       password

@@ -1,7 +1,8 @@
 import { EncrypterAdapter } from '../../adapters/encrypter-adapter';
+import { TokenGenerator } from '../../contracts/token-generator';
 import { UserRepository } from '../../contracts/user-repository';
 import { Password } from '../../models/password';
-import jsonwebtoken from 'jsonwebtoken'
+
 
 interface AuthenticateDTO {
   email: string
@@ -12,7 +13,8 @@ export class AuthenticationController {
 
   constructor (
     private readonly userRepository: UserRepository,
-    private readonly encrypterAdapter: EncrypterAdapter
+    private readonly encrypterAdapter: EncrypterAdapter,
+    private readonly tokenGenerator: TokenGenerator
   ) {}
 
   async authenticate(input: AuthenticateDTO) {
@@ -24,12 +26,13 @@ export class AuthenticationController {
       throw new Error('The passwords are not the same')
     }
 
-    const token = jsonwebtoken.sign({
-      id: user.getId(),
-      email: user.getName(),
-      name: user.getName()
-    }, 'DJM431G4H78979%$FDS#DFDSGHFD(FGS@FDSFSGF*', {
-      expiresIn: '12h',
+    const token = this.tokenGenerator.generateToken({
+      payload: {
+        id: user.getId(),
+        email: user.getName(),
+        name: user.getName()
+      },
+      expiresIn: '12h'
     })
 
     return token
