@@ -1,3 +1,4 @@
+import { UserRepository } from '../../contracts/user-repository'
 import { db } from '../../database'
 import { Account } from '../../models/account'
 import { Password } from '../../models/password'
@@ -12,6 +13,9 @@ interface CreateUserDTO {
 }
 
 export class UserController {
+
+  constructor (private readonly userRepository: UserRepository) {}
+
   async create(input: CreateUserDTO) {
     const { name, email, description, password } = input
     const [createdAccount] = await db('accounts').insert({
@@ -21,13 +25,8 @@ export class UserController {
     const account = new Account(name, description, createdAccount.id)
     const accountId = account.getId() as number
     const user = new User(name, email, new Password(password), accountId)
-    const [createdUser] = await db('users').insert({
-      name: user.getName(),
-      email: user.getEmail(),
-      account_id: accountId,
-      password: user.getPassword()
-    }).returning('*')
-
+    await this.userRepository.save(user)
+    const createdUser = await this.userRepository.findByEmail(email)
     return createdUser
   }
 }
