@@ -22,6 +22,9 @@ export class UserRepositoryDatabase implements UserRepository {
       })
       .first()
 
+    if (!user) {
+      throw new Error('Email not found')
+    }
     return new User(user.name, user.email, new Password(user.password), user.account_id, user.id)
   }
 }
