@@ -8,6 +8,12 @@ import { TokenAdapter } from './adapters/token-adapter'
 
 const server = express()
 server.use(express.json())
+server.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  next()
+})
 
 server.post('/users', async (request: Request, response: Response) => {
   const userRepositoryDatabase = new UserRepositoryDatabase()
