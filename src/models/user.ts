@@ -6,7 +6,8 @@ export class User {
     private readonly name: string,
     private readonly email: string,
     private readonly password: Password,
-    private readonly account_id: number
+    private readonly account_id: number,
+    private readonly id?: string
   ) {}
 
   public getName() {
@@ -23,5 +24,9 @@ export class User {
 
   public getAccountId() {
     return this.account_id
+  }
+
+  public getId() {
+    return this.id
   }
 }

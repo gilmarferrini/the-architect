@@ -1,5 +1,6 @@
 import { UserRepository } from '../contracts/user-repository'
 import { db } from '../database';
+import { Password } from '../models/password';
 import { User } from '../models/user';
 
 export class UserRepositoryDatabase implements UserRepository {
@@ -14,11 +15,13 @@ export class UserRepositoryDatabase implements UserRepository {
   }
 
   public async findByEmail(email: string): Promise<User> {
-    return db('users')
+    const user = await db('users')
       .select('*')
       .where({
         email
       })
       .first()
+
+    return new User(user.name, user.email, new Password(user.password), user.account_id, user.id)
   }
 }
