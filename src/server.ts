@@ -1,18 +1,14 @@
 import express, { Request, Response } from 'express'
-import { db } from './database'
+import { UserController } from './controllers/user/user-controller'
 
 const server = express()
 server.use(express.json())
 
 server.post('/users', async (request: Request, response: Response) => {
-  console.log('request ', request.body)
-  const { name, description } = request.body
-  const createdAccount = await db('accounts').insert({
-    name,
-    description
-  }).returning('*')
-
-  return response.status(201).json(...createdAccount)
+  const userController = new UserController()
+  const createdUser = await userController.create(request.body);
+  console.log('createdUser', createdUser)
+  return response.status(201).json(createdUser)
 })
 
 export {
