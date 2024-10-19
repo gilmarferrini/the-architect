@@ -7,4 +7,8 @@ export class EncrypterAdapter implements Encrypter {
     return bcrypt.hashSync(rawValue, salt)
   }
 
+  public compare({ rawValue, value }: { rawValue: string, value: string }): boolean {
+    return bcrypt.compareSync(rawValue, value)
+  }
+
 }

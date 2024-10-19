@@ -18,8 +18,7 @@ it('should return 404 if user not exists', async () => {
   })
 })
 
-
-it.skip('should authenticate a user', async () => {
+it('should authenticate a user', async () => {
   const email = `${Math.random()}@gmail.com`
   await request(server)
     .post('/users')
@@ -36,9 +35,12 @@ it.skip('should authenticate a user', async () => {
       password: '1234567890',
     }
 
-  const output = request(server)
+  const output = await request(server)
     .post('/users/authenticate')
     .send(input)
     .set('Accept', 'application/json')
-  expect(output).toEqual(401)
+  expect(output.status).toEqual(200)
+  expect(output.body).toEqual({
+    token: expect.any(String)
+  })
 })

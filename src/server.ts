@@ -14,7 +14,6 @@ server.post('/users', async (request: Request, response: Response) => {
   const encrypterAdapter = new EncrypterAdapter()
   const userController = new UserController(userRepositoryDatabase, accountRepository, encrypterAdapter)
   const createdUser = await userController.create(request.body);
-  console.log('createdUser', createdUser)
   return response.status(201).json(createdUser)
 })
 
@@ -22,13 +21,15 @@ server.post('/users/authenticate', async (request: Request, response: Response) 
   try {
     const { email, password } = request.body
     const userRepository = new UserRepositoryDatabase()
-    const authenticationController = new AuthenticationController(userRepository)
-    await authenticationController.authenticate({
+    const encrypterAdapter = new EncrypterAdapter()
+    const authenticationController = new AuthenticationController(userRepository, encrypterAdapter)
+    const token = await authenticationController.authenticate({
       email,
       password
     })
-    return response.status(200)
-  } catch {
+    return response.status(200).json({ token })
+  } catch (err){
+    console.log(err)
     return response.status(401).json({ message: 'unauthorized'})
   }
 })
