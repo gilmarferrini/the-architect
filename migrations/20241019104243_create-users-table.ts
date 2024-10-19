@@ -10,7 +10,7 @@ export async function up(knex: Knex): Promise<void> {
         .onDelete('RESTRICT')
     table.string('name', 50)
     table.string('email', 100).unique()
-    table.string('password', 20)
+    table.string('password')
     table.timestamp('created_at').defaultTo(knex.fn.now())
     table.timestamp('updated_at').defaultTo(knex.fn.now())
   })

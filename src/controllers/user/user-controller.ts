@@ -1,4 +1,5 @@
 import { AccountRepository } from '../../contracts/account-repository'
+import { Encrypter } from '../../contracts/encrypter'
 import { UserRepository } from '../../contracts/user-repository'
 import { Account } from '../../models/account'
 import { Password } from '../../models/password'
@@ -14,14 +15,17 @@ interface CreateUserDTO {
 
 export class UserController {
 
-  constructor (private readonly userRepository: UserRepository, private readonly accountRepository: AccountRepository) {}
+  constructor (
+    private readonly userRepository: UserRepository,
+    private readonly accountRepository: AccountRepository,
+    private readonly encrypterAdapter: Encrypter) {}
 
   async create(input: CreateUserDTO) {
     const { name, email, description, password } = input
     const account = new Account(name, description)
     const createdAccount = await this.accountRepository.save(account)
     const accountId = createdAccount.getId() as number
-    const user = new User(name, email, new Password(password), accountId)
+    const user = new User(name, email, new Password(this.encrypterAdapter.encrypt({ rawValue: password, salt: 8 })), accountId)
     await this.userRepository.save(user)
     const createdUser = await this.userRepository.findByEmail(email)
 
