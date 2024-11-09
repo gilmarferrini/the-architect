@@ -7,11 +7,12 @@ export class AccountRepositoryDatabase implements AccountRepository {
   public async save(account: Account): Promise<Account> {
     const [createdAccount] = await db('accounts')
       .insert({
+        id: account.getId(),
         name: account.getName(),
         description: account.getDescription()
       }).returning('*')
 
-    return new Account(createdAccount.name, createdAccount.description, createdAccount.id)
+    return new Account(createdAccount.id, createdAccount.name, createdAccount.description)
   }
 
 }

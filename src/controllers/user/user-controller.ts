@@ -22,10 +22,11 @@ export class UserController {
 
   async create(input: CreateUserDTO) {
     const { name, email, description, password } = input
-    const account = new Account(name, description)
+    const account = Account.create(name, description)
     const createdAccount = await this.accountRepository.save(account)
-    const accountId = createdAccount.getId() as number
-    const user = new User(name, email, new Password(this.encrypterAdapter.encrypt({ rawValue: password, salt: 8 })), accountId)
+    console.log(createdAccount)
+    const user = User.create(createdAccount.getId(), name, email, new Password(this.encrypterAdapter.encrypt({ rawValue: password, salt: 8 })))
+    console.log(user)
     await this.userRepository.save(user)
     const createdUser = await this.userRepository.findByEmail(email)
 

@@ -7,6 +7,7 @@ export class UserRepositoryDatabase implements UserRepository {
 
   public async save(user: User): Promise<void> {
     await db('users').insert({
+      id: user.getId(),
       account_id: user.getAccountId(),
       name: user.getName(),
       email: user.getEmail(),
@@ -25,6 +26,6 @@ export class UserRepositoryDatabase implements UserRepository {
     if (!user) {
       throw new Error('Email not found')
     }
-    return new User(user.name, user.email, new Password(user.password), user.account_id, user.id)
+    return new User(user.id, user.account_id, user.name, user.email, new Password(user.password))
   }
 }
