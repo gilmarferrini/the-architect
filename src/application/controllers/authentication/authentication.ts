@@ -1,8 +1,7 @@
-import { EncrypterAdapter } from '../../adapters/encrypter-adapter';
-import { TokenGenerator } from '../../contracts/token-generator';
-import { UserRepository } from '../../contracts/user-repository';
-import { Password } from '../../models/password';
-
+import { EncrypterAdapter } from '../../../adapters/encrypter-adapter';
+import { TokenGenerator } from '../../../adapters/token-adapter';
+import { Password } from '../../../domain/value-objects/password';
+import { UserRepository } from '../../repositories/user-repository';
 
 interface AuthenticateDTO {
   email: string

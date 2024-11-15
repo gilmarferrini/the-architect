@@ -1,10 +1,10 @@
 import express, { Request, Response } from 'express'
-import { UserController } from './controllers/user/user-controller'
-import { UserRepositoryDatabase } from './repositories/user-repository'
-import { AccountRepositoryDatabase } from './repositories/account-repository'
 import { EncrypterAdapter } from './adapters/encrypter-adapter'
-import { AuthenticationController } from './controllers/authentication/authentication'
 import { TokenAdapter } from './adapters/token-adapter'
+import { UserRepositoryDatabase } from './infra/repositories/user-repository'
+import { AccountRepositoryDatabase } from './infra/repositories/account-repository'
+import { UserController } from './application/controllers/user/user-controller'
+import { AuthenticationController } from './application/controllers/authentication/authentication'
 
 const server = express()
 server.use(express.json())

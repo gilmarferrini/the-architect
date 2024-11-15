@@ -1,6 +1,6 @@
-import { AccountRepository } from '../contracts/account-repository'
-import { db } from '../database'
-import { Account } from '../models/account'
+import { AccountRepository } from '../../application/repositories/account-repository'
+import { db } from '../../database'
+import { Account } from '../../domain/entities/account'
 
 export class AccountRepositoryDatabase implements AccountRepository {
 

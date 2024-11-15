@@ -1,5 +1,9 @@
 import jsonwebtoken from 'jsonwebtoken'
-import { TokenGenerator } from '../contracts/token-generator'
+
+export interface TokenGenerator {
+  generateToken({ payload, expiresIn }: { payload: object, expiresIn: string }): string
+}
+
 
 export class TokenAdapter implements TokenGenerator {
 

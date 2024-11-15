@@ -1,7 +1,7 @@
-import { UserRepository } from '../contracts/user-repository'
-import { db } from '../database';
-import { Password } from '../models/password';
-import { User } from '../models/user';
+import { UserRepository } from '../../application/repositories/user-repository';
+import { db } from '../../database';
+import { User } from '../../domain/entities/user';
+
 
 export class UserRepositoryDatabase implements UserRepository {
 
@@ -26,6 +26,6 @@ export class UserRepositoryDatabase implements UserRepository {
     if (!user) {
       throw new Error('Email not found')
     }
-    return new User(user.id, user.account_id, user.name, user.email, new Password(user.password))
+    return new User(user.id, user.account_id, user.name, user.email, user.password)
   }
 }

@@ -5,7 +5,7 @@
   "scripts": {
     "start:dev": "ts-node-dev ./src/app.ts",
     "lint:fix": "eslint src --fix",
-    "test": "vitest run --coverage",
+    "test": "vitest run",
     "prepare": "husky"
   },
   "keywords": [],

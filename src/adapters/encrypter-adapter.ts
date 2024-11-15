@@ -1,5 +1,8 @@
-import { Encrypter } from '../contracts/encrypter';
 import bcrypt from 'bcryptjs'
+
+export interface Encrypter {
+  encrypt({ rawValue, salt }: { rawValue: string, salt: string | number }): string
+}
 
 export class EncrypterAdapter implements Encrypter {
 

@@ -1,9 +1,8 @@
-import { AccountRepository } from '../../contracts/account-repository'
-import { Encrypter } from '../../contracts/encrypter'
-import { UserRepository } from '../../contracts/user-repository'
-import { Account } from '../../models/account'
-import { Password } from '../../models/password'
-import { User } from '../../models/user'
+import { Encrypter } from '../../../adapters/encrypter-adapter'
+import { Account } from '../../../domain/entities/account'
+import { User } from '../../../domain/entities/user'
+import { AccountRepository } from '../../repositories/account-repository'
+import { UserRepository } from '../../repositories/user-repository'
 
 interface CreateUserDTO {
   name: string
@@ -25,7 +24,8 @@ export class UserController {
     const account = Account.create(name, description)
     const createdAccount = await this.accountRepository.save(account)
     console.log(createdAccount)
-    const user = User.create(createdAccount.getId(), name, email, new Password(this.encrypterAdapter.encrypt({ rawValue: password, salt: 8 })))
+    const hashedPassword = this.encrypterAdapter.encrypt({ rawValue: password, salt: 8 })
+    const user = User.create(createdAccount.getId(), name, email, hashedPassword)
     console.log(user)
     await this.userRepository.save(user)
     const createdUser = await this.userRepository.findByEmail(email)

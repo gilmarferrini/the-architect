@@ -20,5 +20,4 @@ export class Account {
   public getDescription() {
     return this.description
   }
-
 }

@@ -1,16 +1,19 @@
-import { Password } from './password'
+import { Password } from '../value-objects/password'
 
 export class User {
+  private password: Password
 
   constructor (
     private readonly id: string,
     private readonly accountId: string,
     private readonly name: string,
     private readonly email: string,
-    private readonly password: Password,
-  ) {}
+    password: string,
+  ) {
+    this.password = new Password(password)
+  }
 
-  static create(accountId: string, name: string, email: string, password: Password) {
+  static create(accountId: string, name: string, email: string, password: string) {
     const id = crypto.randomUUID()
     return new User(id, accountId, name, email, password)
   }
