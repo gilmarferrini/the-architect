@@ -1,8 +1,5 @@
-import { Encrypter } from '../../../adapters/encrypter-adapter'
-import { Account } from '../../../domain/entities/account'
-import { User } from '../../../domain/entities/user'
-import { AccountRepository } from '../../repositories/account-repository'
 import { UserRepository } from '../../repositories/user-repository'
+import { UseCase } from '../../usecases/use-case'
 
 interface CreateUserDTO {
   name: string
@@ -16,18 +13,11 @@ export class UserController {
 
   constructor (
     private readonly userRepository: UserRepository,
-    private readonly accountRepository: AccountRepository,
-    private readonly encrypterAdapter: Encrypter) {}
+    private readonly createUserUseCase: UseCase<CreateUserDTO, void>) {}
 
   async create(input: CreateUserDTO) {
-    const { name, email, description, password } = input
-    const account = Account.create(name, description)
-    const createdAccount = await this.accountRepository.save(account)
-    console.log(createdAccount)
-    const hashedPassword = this.encrypterAdapter.encrypt({ rawValue: password, salt: 8 })
-    const user = User.create(createdAccount.getId(), name, email, hashedPassword)
-    console.log(user)
-    await this.userRepository.save(user)
+    const { email } = input
+    await this.createUserUseCase.execute(input)
     const createdUser = await this.userRepository.findByEmail(email)
 
     return {

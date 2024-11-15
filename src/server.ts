@@ -5,6 +5,7 @@ import { UserRepositoryDatabase } from './infra/repositories/user-repository'
 import { AccountRepositoryDatabase } from './infra/repositories/account-repository'
 import { UserController } from './application/controllers/user/user-controller'
 import { AuthenticationController } from './application/controllers/authentication/authentication'
+import { CreateUserUseCase } from './application/usecases/create-user'
 
 const server = express()
 server.use(express.json())
@@ -19,7 +20,8 @@ server.post('/users', async (request: Request, response: Response) => {
   const userRepositoryDatabase = new UserRepositoryDatabase()
   const accountRepository = new AccountRepositoryDatabase()
   const encrypterAdapter = new EncrypterAdapter()
-  const userController = new UserController(userRepositoryDatabase, accountRepository, encrypterAdapter)
+  const createUserUseCase = new CreateUserUseCase(userRepositoryDatabase, accountRepository, encrypterAdapter)
+  const userController = new UserController(userRepositoryDatabase, createUserUseCase)
   const createdUser = await userController.create(request.body);
   return response.status(201).json(createdUser)
 })
